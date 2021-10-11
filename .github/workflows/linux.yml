@@ -1,0 +1,21 @@
+name: linux
+
+on:
+  push:
+    paths: "linux"
+    
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Part C-1
+      run: |
+        ./install-deps.sh;
+        num = $(git rev-parse HEAD:linux);
+        wget https://github.com/suhvin/linux/archive/${num}.zip;
+        unzip -q ${num}.zip;
+        ./build-linux.sh ./linux-${num} tinyconfig;
